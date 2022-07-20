@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<road>
+	<tile0>
+		<rules>
+			<UP sockets="[0, 0, 0, 0, 0]"/>
+			<LEFT sockets="[0, 0, 0, 0, 0]"/>
+			<DOWN sockets="[0, 0, 0, 0, 0]"/>
+			<RIGHT sockets="[0, 0, 0, 0, 0]"/>
+		</rules>
+	</tile0>
+	<tile1>
+		<rules>
+			<UP sockets="[0, 0, 0, 0, 0]"/>
+			<LEFT sockets="[0, 0, 0, 0, 0]"/>
+			<DOWN sockets="[0, 0, 0, 0, 0]"/>
+			<RIGHT sockets="[0, 0, 0, 0, 0]"/>
+		</rules>
+	</tile1>
+	<tile2>
+		<rules>
+			<UP sockets="[0, 0, 0, 0, 0]"/>
+			<LEFT sockets="[0, 0, 0, 0, 0]"/>
+			<DOWN sockets="[0, 0, 0, 0, 0]"/>
+			<RIGHT sockets="[0, 0, 0, 0, 0]"/>
+		</rules>
+	</tile2>
+	<tile3>
+		<rules>
+			<UP sockets="[0, 0, 0, 0, 0]"/>
+			<LEFT sockets="[0, 0, 0, 0, 0]"/>
+			<DOWN sockets="[0, 0, 0, 0, 0]"/>
+			<RIGHT sockets="[0, 0, 0, 0, 0]"/>
+		</rules>
+	</tile3>
+	<tile4>
+		<rules>
+			<UP sockets="[0, 0, 0, 0, 0]"/>
+			<LEFT sockets="[0, 0, 0, 0, 0]"/>
+			<DOWN sockets="[0, 0, 0, 0, 0]"/>
+			<RIGHT sockets="[0, 0, 0, 0, 0]"/>
+		</rules>
+	</tile4>
+</road>
