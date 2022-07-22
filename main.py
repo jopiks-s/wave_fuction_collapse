@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 from packet import *
 
 w, h = 800, 700
+
 road_pack = packet("road")
 
 
