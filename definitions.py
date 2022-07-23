@@ -2,6 +2,7 @@ import os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
 class c_colors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'

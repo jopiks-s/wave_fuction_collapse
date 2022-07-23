@@ -16,8 +16,11 @@ class packet:
         self.map_folder = packet.maps_folder + map_name + '/'
         self.rules_path = self.map_folder + self.map_name + ".xml"
         self.rules = [[{}]]
-        self.tiles = []
+        self.tiles = {}
         self.tiles_count = 0
+
+        xml = ET.parse(self.rules_path)
+        map_root = xml.getroot()
 
         if not os.path.isdir(self.map_folder):
             print(c_colors.FAIL + "can't find map dir at: " + self.map_folder)
@@ -28,25 +31,26 @@ class packet:
             print(c_colors.FAIL + "xml rules doesn't exist, to create use packet.craete_map(...)")
             return
 
+        # load images
         for file in os.listdir(self.map_folder):
             if file.split('.')[1] in ("png", "jpg"):
-                self.tiles.append(Image.open(self.map_folder + file))
+                self.tiles[file.split('.')[0]] = Image.open(self.map_folder + file)
 
         self.tiles_count = len(self.tiles)
         self.rules = [[{}] * 4 for _ in range(self.tiles_count)]
 
-        xml = ET.parse(self.rules_path)
-        map_root = xml.getroot()
-
         if len(map_root) != self.tiles_count:
-            print(
-                c_colors.FAIL + f"Corrupted rules file! Folder tiles count: {self.tiles_count}, Rules tile count: {len(map_root)}")
+            print(c_colors.FAIL +
+                  f"Corrupted rules file! Folder tiles count: {self.tiles_count}, Rules tile count: {len(map_root)}")
             return
 
+        # load rules
+        tiles_mapping = list(self.tiles.keys())
         for i, tile in enumerate(map_root):
+            mapped_index = tiles_mapping.index(tile.tag)
             for j, dir_rules in enumerate(tile[0]):
                 sockets = dir_rules.attrib["sockets"].strip("[]").split(", ")
-                self.rules[i][j] = {dir_rules.tag: sockets}
+                self.rules[mapped_index][j] = {dir_rules.tag: sockets}
 
 
 def create_map(map_name, tiles_count):
@@ -85,4 +89,3 @@ def create_map(map_name, tiles_count):
         f.write(xml_str)
 
     print(f"{map_name} created")
-
