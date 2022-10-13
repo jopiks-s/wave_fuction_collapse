@@ -22,13 +22,14 @@ class packet:
         xml = ET.parse(self.rules_path)
         map_root = xml.getroot()
 
+        # check valid path
         if not os.path.isdir(self.map_folder):
             print(c_colors.FAIL + "can't find map dir at: " + self.map_folder)
             print(c_colors.FAIL + "map doesn't exist")
             return
         if not os.path.isfile(self.map_folder + map_name + ".xml"):
             print(c_colors.FAIL + "can't find xml rules at: " + self.map_folder + map_name + ".xml")
-            print(c_colors.FAIL + "xml rules doesn't exist, to create use packet.craete_map(...)")
+            print(c_colors.FAIL + "xml rules doesn't exist, to create use 'packet.create_xml_rules(...)'")
             return
 
         # load images
@@ -41,7 +42,7 @@ class packet:
 
         if len(map_root) != self.tiles_count:
             print(c_colors.FAIL +
-                  f"Corrupted rules file! Folder tiles count: {self.tiles_count}, Rules tile count: {len(map_root)}")
+                  f"Corrupted xml rules file! -> Xml rules count != Image tiles count. {len(map_root)} != {self.tiles_count}")
             return
 
         # load rules
@@ -53,17 +54,18 @@ class packet:
                 self.rules[mapped_index][j] = {dir_rules.tag: sockets}
 
 
-def create_map(map_name, tiles_count):
+def create_xml_rules(map_name, tiles_count):
     map_dir = f"{ROOT_DIR}/maps/{map_name}"
     file_name = f"{map_dir}/{map_name}.xml"
     tile_names = []
 
+    # get tiles name
     if not os.path.isdir(map_dir):
         os.mkdir(map_dir)
         tile_names = [f"tile{tile}" for tile in range(tiles_count)]
     else:
         if os.path.isfile(file_name):
-            if input("xml map already exist, rewrite? y/n?: ") == "n":
+            if input("xml map already exist, rewrite? y/n?: ")[0] == "n":
                 return
         print(f"rewriting {file_name}...")
         tile_names = [file.split('.')[0] for file in os.listdir(map_dir) if file.split('.')[1] in ("png", "jpg")]
@@ -73,6 +75,7 @@ def create_map(map_name, tiles_count):
     packet = root.createElement(map_name)
     root.appendChild(packet)
 
+    # create xml tree
     for i in range(tiles_count):
         item = root.createElement(tile_names[i])
         rules = root.createElement("rules")
@@ -88,4 +91,4 @@ def create_map(map_name, tiles_count):
     with open(file_name, "w") as f:
         f.write(xml_str)
 
-    print(f"{map_name} created")
+    print(f"{map_name} created!")

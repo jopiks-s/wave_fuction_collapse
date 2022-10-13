@@ -4,22 +4,25 @@ from packet import *
 from map import *
 import image
 
+
+def ini_window(w, h):
+    window = Tk()
+    x = int(window.winfo_screenwidth() / 2 - w / 2)
+    y = int(window.winfo_screenheight() / 2 - h / 2)
+    window.geometry(f"{w}x{h}+{x}+{y}")
+    return window
+
+
 w, h = 700, 700
 
-window = Tk()
-map_pack = packet("road")
-map = map(window=window, map_pack=map_pack, root_size=(w, h), size=(10, 10))
+window = ini_window(w, h)
+tiles_packet = packet("road")
+map = map(window=window, tiles_packet=tiles_packet, window_size=(w, h), map_size=(10, 10))
 
 
 def main():
     pass
-
-# sw = window.winfo_screenwidth()
-# sh = window.winfo_screenheight()
-# w_x = int(sw / 2 - w / 2)
-# w_y = int(sh / 2 - h / 2)
-# window.geometry(f"{w}x{h}+{w_x}+{w_y}")
-# window.mainloop()
+    # window.mainloop()
 
 
 if __name__ == '__main__':
